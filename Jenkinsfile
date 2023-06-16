@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Initialisation') { 
             steps {
-                sh "docker rm -f $(docker ps -aq) || true"
+                sh 'docker rm -f $(docker ps -aq) || true'
             }
         }
         stage('Build') { 
