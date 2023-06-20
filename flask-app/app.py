@@ -1,11 +1,11 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from os import getenv
+import os
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
 # Replace [PASSWORD] with the root password for your mysql container
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{getenv("MYSQL_ROOT_PASSWORD")}@mysql:3306/flask-db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:password@mytriotasksql:3306/flask-db'
 
 class Users(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -22,4 +22,4 @@ def hello():
   return render_template('home.html', data1=data1)
 
 if __name__=='__main__':
-  app.run(host='0.0.0.0', port=5000, debug=True)
+  app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000), debug=True)
